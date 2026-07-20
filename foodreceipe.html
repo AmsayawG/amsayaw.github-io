@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RecipeHub · Explore Delicious Recipes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap');
+        * { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        .recipe-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .recipe-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #f59e0b, #ef4444, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .badge-category {
+            background: #fef3c7;
+            color: #92400e;
+            font-size: 0.6rem;
+            font-weight: 700;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+        }
+        .badge-dietary {
+            background: #dbeafe;
+            color: #1e40af;
+            font-size: 0.6rem;
+            font-weight: 700;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+        }
+        .badge-time {
+            background: #fce4ec;
+            color: #9c27b0;
+            font-size: 0.6rem;
+            font-weight: 700;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+        }
+        .hero-pattern {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 30%, #fcd34d 60%, #fbbf24 100%);
+        }
+        .search-input:focus {
+            outline: 2px solid #f59e0b;
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== NAVIGATION ========== -->
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-md shadow-sm">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-500 rounded-xl flex items-center justify-center">
+                    <i class="fas fa-utensils text-white text-xl"></i>
+                </div>
+                <span class="text-2xl font-extrabold text-gray-800">Recipe<span class="text-amber-500">Hub</span></span>
+            </div>
+            <div class="hidden md:flex items-center gap-8 text-gray-600 font-medium">
+                <a href="#home" class="hover:text-amber-500 transition">Home</a>
+                <a href="#categories" class="hover:text-amber-500 transition">Categories</a>
+                <a href="#recipes" class="hover:text-amber-500 transition">Recipes</a>
+                <a href="#about" class="hover:text-amber-500 transition">About</a>
+            </div>
+            <div class="flex items-center gap-3">
+                <i class="fas fa-search text-gray-400 hover:text-amber-500 transition cursor-pointer"></i>
+                <a href="#contact" class="bg-amber-500 text-white px-6 py-2.5 rounded-full font-semibold hover:bg-amber-600 transition shadow-lg shadow-amber-200">
+                    Save Recipe
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== HERO SECTION ========== -->
+    <section id="home" class="hero-pattern pt-32 pb-20 px-6">
+        <div class="max-w-7xl mx-auto text-center">
+            <div class="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm text-amber-700 px-4 py-2 rounded-full text-sm font-semibold mb-6">
+                <i class="fas fa-fire text-amber-500"></i>
+                10,000+ Recipes from Around the World
+            </div>
+            <h1 class="text-5xl md:text-7xl font-extrabold leading-tight">
+                Discover <br />
+                <span class="gradient-text">Delicious Recipes</span> <br />
+                for Every Occasion
+            </h1>
+            <p class="text-xl text-gray-600 mt-6 max-w-2xl mx-auto leading-relaxed">
+                Find your next favorite meal. Search by ingredient, cuisine, or dietary preference.
+            </p>
+            <div class="mt-10 max-w-2xl mx-auto">
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <input 
+                        type="text" 
+                        placeholder="Search recipes... (e.g., chicken, pasta, vegan)" 
+                        class="search-input flex-1 px-6 py-4 rounded-full border-2 border-gray-200 focus:border-amber-400 transition text-gray-700"
+                    />
+                    <button class="bg-amber-500 text-white px-8 py-4 rounded-full font-semibold hover:bg-amber-600 transition shadow-xl shadow-amber-200 flex items-center gap-2 justify-center">
+                        <i class="fas fa-search"></i> Search
+                    </button>
+                </div>
+                <div class="flex flex-wrap gap-3 justify-center mt-4">
+                    <span class="text-sm text-gray-500">Popular:</span>
+                    <span class="text-sm text-amber-600 hover:text-amber-700 cursor-pointer">🍕 Pizza</span>
+                    <span class="text-sm text-amber-600 hover:text-amber-700 cursor-pointer">🍣 Sushi</span>
+                    <span class="text-sm text-amber-600 hover:text-amber-700 cursor-pointer">🥑 Avocado Toast</span>
+                    <span class="text-sm text-amber-600 hover:text-amber-700 cursor-pointer">🍝 Pasta</span>
+                    <span class="text-sm text-amber-600 hover:text-amber-700 cursor-pointer">🥗 Salad</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CATEGORIES ========== -->
+    <section id="categories" class="py-20 px-6 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-amber-500 font-semibold text-sm tracking-widest uppercase">Categories</span>
+                <h2 class="text-4xl md:text-5xl font-extrabold mt-2">Explore by <span class="gradient-text">Cuisine</span></h2>
+                <p class="text-gray-500 text-lg mt-4">Find recipes from your favorite cuisines around the world.</p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-6 gap-4">
+                <div class="bg-gray-50 rounded-2xl p-4 text-center hover:bg-amber-50 transition cursor-pointer border-2 border-transparent hover:border-amber-200">
+                    <div class="text-4xl mb-2">🇮🇹</div>
+                    <p class="font-semibold text-sm">Italian</p>
+                    <p class="text-xs text-gray-400">120 recipes</p>
+                </div>
+                <div class="bg-gray-50 rounded-2xl p-4 text-center hover:bg-amber-50 transition cursor-pointer border-2 border-transparent hover:border-amber-200">
+                    <div class="text-4xl mb-2">🇯🇵</div>
+                    <p class="font-semibold text-sm">Japanese</p>
+                    <p class="text-xs text-gray-400">85 recipes</p>
+                </div>
+                <div class="bg-gray-50 rounded-2xl p-4 text-center hover:bg-amber-50 transition cursor-pointer border-2 border-transparent hover:border-amber-200">
+                    <div class="text-4xl mb-2">🇲🇽</div>
+                    <p class="font-semibold text-sm">Mexican</p>
+                    <p class="text-xs text-gray-400">94 recipes</p>
+                </div>
+                <div class="bg-gray-50 rounded-2xl p-4 text-center hover:bg-amber-50 transition cursor-pointer border-2 border-transparent hover:border-amber-200">
+                    <div class="text-4xl mb-2">🇨🇳</div>
+                    <p class="font-semibold text-sm">Chinese</p>
+                    <p class="text-xs text-gray-400">76 recipes</p>
+                </div>
+                <div class="bg-gray-50 rounded-2xl p-4 text-center hover:bg-amber-50 transition cursor-pointer border-2 border-transparent hover:border-amber-200">
+                    <div class="text-4xl mb-2">🇫🇷</div>
+                    <p class="font-semibold text-sm">French</p>
+                    <p class="text-xs text-gray-400">63 recipes</p>
+                </div>
+                <div class="bg-gray-50 rounded-2xl p-4 text-center hover:bg-amber-50 transition cursor-pointer border-2 border-transparent hover:border-amber-200">
+                    <div class="text-4xl mb-2">🇮🇳</div>
+                    <p class="font-semibold text-sm">Indian</p>
+                    <p class="text-xs text-gray-400">98 recipes</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FEATURED RECIPES ========== -->
+    <section id="recipes" class="py-20 px-6 bg-gray-50">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-amber-500 font-semibold text-sm tracking-widest uppercase">Featured</span>
+                <h2 class="text-4xl md:text-5xl font-extrabold mt-2">Popular <span class="gradient-text">Recipes</span></h2>
+                <p class="text-gray-500 text-lg mt-4">Hand-picked recipes our users love the most.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Recipe 1 -->
+                <div class="recipe-card bg-white rounded-3xl overflow-hidden shadow-md">
+                    <div class="h-56 bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center text-7xl">
+                        🍝
+                    </div>
+                    <div class="p-6">
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="badge-category">Italian</span>
+                            <span class="badge-dietary">Vegetarian</span>
+                            <span class="badge-time">30 min</span>
+                        </div>
+                        <h3 class="text-xl font-bold">Classic Spaghetti Carbonara</h3>
+                        <p class="text-gray-500 text-sm mt-2">Creamy pasta with pancetta, eggs, and Parmesan cheese.</p>
+                        <div class="flex items-center gap-4 mt-4 text-sm text-gray-500">
+                            <span><i class="fas fa-star text-amber-400"></i> 4.8 (342)</span>
+                            <span><i class="far fa-clock"></i> 25 min</span>
+                            <span><i class="fas fa-utensils"></i> Easy</span>
+                        </div>
+                        <div class="flex gap-3 mt-4">
+                            <button class="flex-1 bg-amber-500 text-white px-4 py-2.5 rounded-full text-sm font-semibold hover:bg-amber-600 transition">
+                                View Recipe
+                            </button>
+                            <button class="w-12 h-12 bg-gray-100 rounded-full hover:bg-red-50 transition text-gray-400 hover:text-red-500 flex items-center justify-center">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recipe 2 -->
+                <div class="recipe-card bg-white rounded-3xl overflow-hidden shadow-md">
+                    <div class="h-56 bg-gradient-to-br from-red-400 to-pink-500 flex items-center justify-center text-7xl">
+                        🍣
+                    </div>
+                    <div class="p-6">
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="badge-category">Japanese</span>
+                            <span class="badge-dietary">Gluten-Free</span>
+                            <span class="badge-time">45 min</span>
+                        </div>
+                        <h3 class="text-xl font-bold">Sushi Rolls (Maki)</h3>
+                        <p class="text-gray-500 text-sm mt-2">Fresh salmon, avocado, and cucumber wrapped in seaweed.</p>
+                        <div class="flex items-center gap-4 mt-4 text-sm text-gray-500">
+                            <span><i class="fas fa-star text-amber-400"></i> 4.9 (215)</span>
+                            <span><i class="far fa-clock"></i> 40 min</span>
+                            <span><i class="fas fa-utensils"></i> Medium</span>
+                        </div>
+                        <div class="flex gap-3 mt-4">
+                            <button class="flex-1 bg-amber-500 text-white px-4 py-2.5 rounded-full text-sm font-semibold hover:bg-amber-600 transition">
+                                View Recipe
+                            </button>
+                            <button class="w-12 h-12 bg-gray-100 rounded-full hover:bg-red-50 transition text-gray-400 hover:text-red-500 flex items-center justify-center">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recipe 3 -->
+                <div class="recipe-card bg-white rounded-3xl overflow-hidden shadow-md">
+                    <div class="h-56 bg-gradient-to-br from-green-400 to-emerald-500 flex items-center justify-center text-7xl">
+                        🥑
+                    </div>
+                    <div class="p-6">
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="badge-category">Healthy</span>
+                            <span class="badge-dietary">Vegan</span>
+                            <span class="badge-dietary">Gluten-Free</span>
+                            <span class="badge-time">10 min</span>
+                        </div>
+                        <h3 class="text-xl font-bold">Avocado Toast with Poached Egg</h3>
+                        <p class="text-gray-500 text-sm mt-2">Creamy avocado on sourdough with a perfectly poached egg.</p>
+                        <div class="flex items-center gap-4 mt-4 text-sm text-gray-500">
+                            <span><i class="fas fa-star text-amber-400"></i> 4.7 (189)</span>
+                            <span><i class="far fa-clock"></i> 10 min</span>
+                            <span><i class="fas fa-utensils"></i> Easy</span>
+                        </div>
+                        <div class="flex gap-3 mt-4">
+                            <button class="flex-1 bg-amber-500 text-white px-4 py-2.5 rounded-full text-sm font-semibold hover:bg-amber-600 transition">
+                                View Recipe
+                            </button>
+                            <button class="w-12 h-12 bg-gray-100 rounded-full hover:bg-red-50 transition text-gray-400 hover:text-red-500 flex items-center justify-center">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== WHY THIS PROJECT WORKS ========== -->
+    <section id="about" class="py-20 px-6 bg-white">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-12">
+                <span class="text-amber-500 font-semibold text-sm tracking-widest uppercase">About This Project</span>
+                <h2 class="text-4xl md:text-5xl font-extrabold mt-2">Why I Built <span class="gradient-text">RecipeHub</span></h2>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-gray-50 p-6 rounded-2xl text-center">
+                    <div class="w-16 h-16 bg-amber-100 rounded-2xl flex items-center justify-center text-amber-600 text-2xl mx-auto mb-4">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h4 class="font-bold">Clean Code</h4>
+                    <p class="text-sm text-gray-500 mt-2">Built with React and Tailwind CSS for clean, maintainable code.</p>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-2xl text-center">
+                    <div class="w-16 h-16 bg-amber-100 rounded-2xl flex items-center justify-center text-amber-600 text-2xl mx-auto mb-4">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h4 class="font-bold">Responsive Design</h4>
+                    <p class="text-sm text-gray-500 mt-2">Works perfectly on phones, tablets, and desktops.</p>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-2xl text-center">
+                    <div class="w-16 h-16 bg-amber-100 rounded-2xl flex items-center justify-center text-amber-600 text-2xl mx-auto mb-4">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h4 class="font-bold">User Experience</h4>
+                    <p class="text-sm text-gray-500 mt-2">Designed with the user in mind — easy to browse and discover.</p>
+                </div>
+            </div>
+            <div class="bg-amber-50 rounded-2xl p-6 text-center border-2 border-amber-200 mt-8">
+                <p class="text-gray-700">
+                    <i class="fas fa-lightbulb text-amber-500 text-xl mr-3"></i>
+                    <span class="font-semibold">Learning Project:</span> 
+                    This is a personal project built to showcase my frontend skills. 
+                    <span class="text-amber-600 font-semibold">No real recipes were harmed in the making.</span>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CONTACT ========== -->
+    <section id="contact" class="py-20 px-6 bg-gray-50">
+        <div class="max-w-4xl mx-auto text-center">
+            <span class="text-amber-500 font-semibold text-sm tracking-widest uppercase">Let's Connect</span>
+            <h2 class="text-4xl md:text-5xl font-extrabold mt-2">Love This <span class="gradient-text">Project?</span></h2>
+            <p class="text-gray-500 text-lg mt-4 max-w-2xl mx-auto">
+                I built this to demonstrate my frontend development skills. 
+                I'm looking for freelance opportunities — let's work together!
+            </p>
+            <div class="mt-12 flex flex-col md:flex-row gap-6 justify-center">
+                <a href="mailto:your.email@example.com" class="bg-amber-500 text-white px-10 py-4 rounded-full font-semibold hover:bg-amber-600 transition shadow-xl shadow-amber-200 flex items-center gap-3 justify-center">
+                    <i class="fas fa-envelope"></i> your.email@example.com
+                </a>
+                <a href="#" class="border-2 border-gray-300 px-10 py-4 rounded-full font-semibold hover:border-amber-500 hover:text-amber-500 transition flex items-center gap-3 justify-center">
+                    <i class="fab fa-github"></i> View Source Code
+                </a>
+            </div>
+            <div class="flex justify-center gap-8 mt-12 text-gray-400">
+                <a href="#" class="hover:text-amber-500 transition text-2xl"><i class="fab fa-github"></i></a>
+                <a href="#" class="hover:text-amber-500 transition text-2xl"><i class="fab fa-linkedin"></i></a>
+                <a href="#" class="hover:text-amber-500 transition text-2xl"><i class="fab fa-upwork"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="bg-gray-900 text-gray-400 py-8 px-6">
+        <div class="max-w-7xl mx-auto text-center">
+            <div class="flex items-center justify-center gap-2 mb-2">
+                <i class="fas fa-utensils text-amber-500"></i>
+                <span class="text-white font-bold">RecipeHub</span>
+            </div>
+            <p class="text-sm">Built with ❤️ as a portfolio project. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
